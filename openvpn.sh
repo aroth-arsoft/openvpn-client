@@ -358,6 +358,8 @@ global_return_routes
 
 [[ ${DEFAULT_GATEWAY:-} == "false" ]] &&
             ext_args=$(sed 's/ --redirect-gateway def1//' <<< $ext_args)
+[[ ${DEFAULT_GATEWAY:-} == "private" ]] &&
+            ext_args=$(sed 's/ --redirect-private def1//' <<< $ext_args)
 [[ -e $auth ]] && ext_args+=" --auth-user-pass $auth"
 [[ -e $cert_auth ]] && ext_args+=" --askpass $cert_auth"
 

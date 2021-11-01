@@ -1,5 +1,6 @@
-FROM alpine
+FROM alpine:edge
 MAINTAINER David Personette <dperson@gmail.com>
+ARG HEALTHCHECK_URL=https://api.ipify.org
 
 # Install openvpn
 RUN apk --no-cache --no-progress upgrade && \
@@ -11,7 +12,7 @@ RUN apk --no-cache --no-progress upgrade && \
 COPY openvpn.sh /usr/bin/
 
 HEALTHCHECK --interval=60s --timeout=15s --start-period=120s \
-             CMD curl -LSs 'https://api.ipify.org'
+             CMD curl -LSs $HEALTHCHECK_URL
 
 VOLUME ["/vpn"]
 
